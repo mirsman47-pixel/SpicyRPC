@@ -156,9 +156,6 @@ class DiscordRPC:
                     large_image = cover
                 large_text = f"{album}" if album else f"{title} — {artist}"
 
-            small_image = "play" if is_playing else "pause"
-            small_text = "Spotify"
-
             start_time = None
             end_time = None
             if (
@@ -170,19 +167,19 @@ class DiscordRPC:
                 end_time = start_time + int(duration_ms / 1000)
 
             state_parts = []
-            if album and discord_cfg.get("show_album", True):
-                state_parts.append(album)
             if artist:
                 state_parts.append(artist)
-            state = " — ".join(state_parts) if state_parts else ""
+            if album and discord_cfg.get("show_album", True):
+                state_parts.append(album)
+            state = " - ".join(state_parts) if state_parts else ""
 
             presence_kwargs = {
                 "details": title[:128] if title else "",
                 "state": state[:128] if state else "",
-                "large_image": large_image[:128] if large_image else None,
+                "large_image": large_image[:128]
+                if large_image
+                else "spotify:ab67616d00001e02",
                 "large_text": large_text[:128] if large_text else None,
-                "small_image": small_image,
-                "small_text": small_text,
                 "start": start_time,
                 "end": end_time,
                 "buttons": [
