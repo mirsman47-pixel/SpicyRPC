@@ -44,6 +44,7 @@ DEFAULT_CONFIG = {
         "show_cover": True,
         "show_album": True,
         "show_progress": True,
+        "github_url": "https://github.com/mirsman47-pixel/SpicyRPC",
     },
 }
 
@@ -184,6 +185,14 @@ class DiscordRPC:
                 "small_text": small_text,
                 "start": start_time,
                 "end": end_time,
+                "buttons": [
+                    {
+                        "label": "View on GitHub",
+                        "url": discord_cfg.get(
+                            "github_url", "https://github.com/mirsman47-pixel/SpicyRPC"
+                        ),
+                    }
+                ],
             }
 
             presence_kwargs = {
@@ -1178,6 +1187,10 @@ class NowPlayingHandler(BaseHTTPRequestHandler):
                 <p style="font-size: 11px; color: #888; margin-top: 4px; margin-bottom: 10px;">
                     Go to your app → Bot → Reset Token. Required for custom app names in RPC.
                 </p>
+                <div class="form-group" style="margin-top: 12px;">
+                    <label class="form-label">GitHub URL (shown in Discord button)</label>
+                    <input type="text" id="discordGithubUrl" value="{config.get("discord", {}).get("github_url", "https://github.com/mirsman47-pixel/SpicyRPC")}" placeholder="https://github.com/..." style="font-size: 12px;">
+                </div>
                 <div class="toggle-row">
                     <span class="toggle-label">Show Album Cover</span>
                     <div class="toggle {"on" if config.get("discord", {}).get("show_cover", True) else ""}" data-discord="show_cover"></div>
@@ -1315,6 +1328,15 @@ class NowPlayingHandler(BaseHTTPRequestHandler):
             discordBotTokenInput.addEventListener('change', (e) => {{
                 if (!currentConfig.discord) currentConfig.discord = {{}};
                 currentConfig.discord.bot_token = e.target.value.trim();
+            }});
+        }}
+
+        // Discord GitHub URL input
+        const discordGithubUrlInput = document.getElementById('discordGithubUrl');
+        if (discordGithubUrlInput) {{
+            discordGithubUrlInput.addEventListener('change', (e) => {{
+                if (!currentConfig.discord) currentConfig.discord = {{}};
+                currentConfig.discord.github_url = e.target.value.trim();
             }});
         }}
 
