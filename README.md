@@ -78,7 +78,7 @@ Open `http://localhost:8765` in your browser to:
 - Live preview in config page
 
 ### Discord Rich Presence 
-- i did it 'cause in russia we cant use rpc from spotify, idk i was lazy to do it another project soo..
+- i did it 'cause in russia we cant use rpc from spotify, idk i was lazy to do it in another project soo..
 - Shows song name, artist, album
 - Album art (requires registering images in your Discord app)
 - Live progress bar with timestamps
